@@ -28,6 +28,14 @@ ADMINS = int(os.environ.get("ADMINS", "8391386178"))
 # Auto delete time seconds mein (5 minutes = 300 seconds)
 AUTO_DELETE_TIME = int(os.environ.get("AUTO_DELETE_TIME", 300))
 
+# 🎫 TOKEN VERIFICATION SYSTEM SYSTEM (ULTRA PREMIUM)
+TOKEN_TIMEOUT = 86400  # Seconds mein timing set karein (1 hr = 3600, 12 hr = 43200, 24 hr = 86400)
+SHORTENER_URL = "vplink.in"  # Apni website ka shortener domain bina https:// ke
+SHORTENER_API = "643cf7208bfdc009d2e1f953905840a9619d48ca"  # Apni shortener website ka API KEY dalein
+
+# 📊 LOG CHANNEL SYSTEM
+LOG_CHANNEL = -1004214402860  # Apna Log Channel ID yahan dalein
+
 # Your Channel Id In Which Bot Upload Downloaded Video/File/Message etc.
 # And Make Your Bot Admin In this channel with full rights.
 # if you don't want to upload in channel then leave it blank don't fill anything.
