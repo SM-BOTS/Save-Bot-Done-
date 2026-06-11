@@ -3,6 +3,7 @@
 # Ask Doubt on telegram @KingVJ01
 
 import motor.motor_asyncio
+import time
 from config import DB_NAME, DB_URI
 
 class Database:
@@ -19,8 +20,10 @@ class Database:
             session = None,
             api_id = None,
             api_hash = None,
-            dump_id = None,      # Naya: Dump Channel ID save karne ke liye
-            caption = None       # Naya: Custom Caption save karne ke liye
+            dump_id = None,      # Dump Channel ID save karne ke liye
+            caption = None,      # Custom Caption save karne ke liye
+            verified_at = 0,     # Naya: Token verification ka timestamp
+            verification_token = None # Naya: One-time use verification unique key
         )
     
     async def add_user(self, id, name):
@@ -91,6 +94,43 @@ class Database:
     async def remove_caption(self, id):
         """User ka custom caption delete karne ke liye"""
         await self.col.update_one({'id': int(id)}, {'$set': {'caption': None}})
+
+    # ========================================================
+    # ULTRA LEVEL ULTRA PREMIUM VERIFICATION SYSTEM FUNCTIONS
+    # ========================================================
+
+    async def get_verify_status(self, id, timeout_duration):
+        """User ke verification ka status aur timing loop bypass control check karne ke liye"""
+        user = await self.col.find_one({'id': int(id)})
+        if not user:
+            return False
+            
+        verified_at = user.get("verified_at", 0)
+        current_time = int(time.time())
+        
+        # Agar user ka verified time limit ke andar h toh True, varna False
+        if (current_time - verified_at) < timeout_duration:
+            return True
+        return False
+
+    async def update_verify_status(self, id):
+        """Verification successful hone par token ko permanently database se flush aur expiry block set karne ke liye"""
+        current_time = int(time.time())
+        await self.col.update_one(
+            {'id': int(id)},
+            {'$set': {'verified_at': current_time, 'verification_token': None}} # Token instantly deleted (Anti-Bypass One-time lock)
+        )
+
+    async def set_verification_token(self, id, token):
+        """One-time use unique secure token key database me assign karne ke liye"""
+        await self.col.update_one({'id': int(id)}, {'$set': {'verification_token': token}})
+
+    async def get_verification_token(self, id):
+        """Verification URL click hone par token integrity valid karne ke liye"""
+        user = await self.col.find_one({'id': int(id)})
+        if user:
+            return user.get('verification_token')
+        return None
 
 db = Database(DB_URI, DB_NAME if DB_NAME else "TechVJDemoBot")
 
