@@ -25,6 +25,9 @@ API_HASH = os.environ.get("API_HASH", "7cd3bda26b08957a7205bbe8a51e6e90")
 # Your Owner / Admin Id For Broadcast 
 ADMINS = int(os.environ.get("ADMINS", "8391386178"))
 
+# Auto delete time seconds mein (5 minutes = 300 seconds)
+AUTO_DELETE_TIME = int(os.environ.get("AUTO_DELETE_TIME", 300))
+
 # Your Channel Id In Which Bot Upload Downloaded Video/File/Message etc.
 # And Make Your Bot Admin In this channel with full rights.
 # if you don't want to upload in channel then leave it blank don't fill anything.
