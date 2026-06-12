@@ -41,6 +41,10 @@ LOG_CHANNEL = -1004214402860  # Apna Log Channel ID yahan dalein
 # if you don't want to upload in channel then leave it blank don't fill anything.
 CHANNEL_ID = os.environ.get("CHANNEL_ID", "")
 
+
+CHANNEL_ID = -1003985895823  # Aapki normal channel ID
+# Link automatic button par lag jayegi
+
 # Your Mongodb Database Url
 # Warning - Give Db uri in deploy server environment variable, don't give in repo.
 DB_URI = os.environ.get("DB_URI", "mongodb+srv://gxmon239:f4l7bKrhka3Fh2cV@cluster0.qmblwql.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0") # Warning - Give Db uri in deploy server environment variable, don't give in repo.
