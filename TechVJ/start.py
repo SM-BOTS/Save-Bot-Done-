@@ -380,10 +380,8 @@ async def handle_private(client: Client, acc, message: Message, chatid: int, msg
     if msg.empty: return 
     msg_type = get_message_type(msg)
     if not msg_type: return 
-    if CHANNEL_ID:
-        try: chat = int(CHANNEL_ID)
-        except: chat = message.chat.id
-    else: chat = message.chat.id
+    # ✅ NAYA BILKUL FIXED CODE (Ab file sirf user ke private chat me jayegi):
+    chat = message.chat.id
     if batch_temp.IS_BATCH.get(message.from_user.id): return 
     if "Text" == msg_type:
         try:
