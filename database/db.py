@@ -6,13 +6,19 @@ import motor.motor_asyncio
 import time
 from config import DB_NAME, DB_URI
 
+# database/db.py ke shuruat wale hisse ko badal kar aisa kar do:
+
 class Database:
     
     def __init__(self, uri, database_name):
-        self._client = motor.motor_asyncio.AsyncIOMotorClient(uri)
+        # 🔄 Added retryWrites and serverSelectionTimeoutMS for auto-reconnect handling
+        self._client = motor.motor_asyncio.AsyncIOMotorClient(
+            uri, 
+            retryWrites=True, 
+            serverSelectionTimeoutMS=5000
+        )
         self.db = self._client[database_name]
         self.col = self.db.users
-
     def new_user(self, id, name):
         return dict(
             id = id,
