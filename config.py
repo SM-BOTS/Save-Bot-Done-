@@ -42,7 +42,7 @@ LOG_CHANNEL = -1004214402860  # Apna Log Channel ID yahan dalein
 CHANNEL_ID = os.environ.get("CHANNEL_ID", "")
 
 
-CHANNEL_ID = -1003985895823  # Aapki normal channel ID
+CHANNEL_ID =   # Aapki normal channel ID
 # Link automatic button par lag jayegi
 
 # Your Mongodb Database Url
